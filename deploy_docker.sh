@@ -16,13 +16,12 @@ target_image=${projectName}:${tag}
 #${BUILD_NUMBER}
 echo ${target_image}
 
+cd ${docker_path}
 
-jarName=spring-boot-demo-0.0.1-SNAPSHOT.jar
-jarFolder=ph
-projectName=ph
+docker build --build-arg app=${appName} -t ${target_image}
 
-docker_path=${WORKSPACE}
+docker tag ${target_image} ${server_path}/${projectName}
+echo The name of image is "${server_path}\/${projectName}"
+docker push ${server_path}/${projectName}:latest
 
-cp ${WORKSPACE}/target/${jarName} ${docker_path}
-
-sh /root/docker_dir/deploy_docker.sh ${projectName} ${docker_path} ${jarName}
+docker rmi -f $(docker iamges | grep ${projectName} | grep ${tag} | awk '{print $3}' | head -n 1)
