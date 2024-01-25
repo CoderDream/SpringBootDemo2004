@@ -13,6 +13,8 @@ appName=$3
 tag=$(date +%s)
 server_path=192.168.3.161:5000
 target_image=${projectName}:${tag}
+#${BUILD_NUMBER}
+echo ${target_image}
 
 
 jarName=spring-boot-demo-0.0.1-SNAPSHOT.jar
